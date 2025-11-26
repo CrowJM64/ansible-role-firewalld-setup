@@ -1,9 +1,11 @@
 ---
-# defaults file for firewalld-setup
+# vars file for firewalld-setup
 # Ports with Protocol to allow through FirewallD
 fw_ports:
   - 22/tcp
+  - 443/tcp
 
 # Services to allow through FirewallD
 fw_services:
   - ssh
+  - cockpit
