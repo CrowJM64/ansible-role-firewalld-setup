@@ -12,6 +12,9 @@ This Ansible role installs FirewallD and removes UFW, adding SSH to the allowlis
 - Restarts FirewallD
 ```
 
+## Dependencies
+- ansible.posix
+
 ## Supported Platforms and Derivatives
 These changes should work on every Redhat and Debian Distro. Below are the explicitly supported Distros.
 ```yaml

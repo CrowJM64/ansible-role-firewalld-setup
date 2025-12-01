@@ -1,43 +1,39 @@
 ---
 ########## FirewallD Setup  ##########
-- name: Firewall Tasks
-  hosts: all
-  become: yes
-  tasks:
-  - name: Remove UFW is removed on Debian systems.
-    ansible.builtin.package:
-      name: ufw
-      state: absent
-    when: ansible_os_family == "Debian"
+- name: Remove UFW is removed on Debian systems.
+  ansible.builtin.package:
+    name: ufw
+    state: absent
+  when: ansible_os_family == "Debian"
 
-  - name: Ensure firewalld is installed and running.
-    ansible.builtin.package:
-      name: firewalld
-      state: latest
+- name: Ensure firewalld is installed and running.
+  ansible.builtin.package:
+    name: firewalld
+    state: latest
 
-  - name: configure access to required tcp network ports
-    ansible.posix.firewalld:
-      port: "{{ item }}"
-      state: enabled
-      permanent: true
-      immediate: false
-      offline: true
-    loop: "{{ fw_ports }}"
-    register: restart_firewalld
+- name: configure access to required tcp network ports
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: false
+    offline: true
+  loop: "{{ fw_ports }}"
+  register: restart_firewalld
 
-  - name: Permanently enable https service, also enable it immediately if possible
-    ansible.posix.firewalld:
-      service: "{{ item }}"
-      state: enabled
-      permanent: true
-      immediate: false
-      offline: true
-    loop: "{{ fw_services }}"
-    register: restart_firewalld
+- name: Permanently enable https service, also enable it immediately if possible
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: false
+    offline: true
+  loop: "{{ fw_services }}"
+  register: restart_firewalld
 
-  - name: Restart SSHD With Changes (RHEL)
-    ansible.builtin.systemd:
-      name: sshd
-      state: restarted
-    when:
-      - restart_firewalld is changed
+- name: Restart SSHD With Changes (RHEL)
+  ansible.builtin.systemd:
+    name: sshd
+    state: restarted
+  when:
+    - restart_firewalld is changed
