@@ -11,7 +11,7 @@
     name: firewalld
     state: latest
 
-- name: configure access to required tcp network ports
+- name: Configure FirewallD Open Ports
   ansible.posix.firewalld:
     port: "{{ item }}"
     state: enabled
@@ -21,7 +21,7 @@
   loop: "{{ fw_ports }}"
   register: restart_firewalld
 
-- name: Permanently enable https service, also enable it immediately if possible
+- name: Configure FirewallD Open Services
   ansible.posix.firewalld:
     service: "{{ item }}"
     state: enabled
@@ -31,9 +31,14 @@
   loop: "{{ fw_services }}"
   register: restart_firewalld
 
-- name: Restart SSHD With Changes (RHEL)
-  ansible.builtin.systemd:
-    name: sshd
+- name: Enable FirewallD
+  ansible.builtin.service:
+    name: firewalld
+    enabled: yes
+
+- name: Restart FirewallD With Changes
+  ansible.builtin.service:
+    name: firewalld
     state: restarted
   when:
     - restart_firewalld is changed
