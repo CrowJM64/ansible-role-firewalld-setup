@@ -6,6 +6,14 @@
     state: absent
   when: ansible_os_family == "Debian"
 
+- name: Install Pre-Req python3-firewall is installed on Debian systems.
+  ansible.builtin.package:
+    name:
+      - python3-firewall
+    state: latest
+  when: ansible_os_family == "Debian"
+
+
 - name: Ensure firewalld is installed and running.
   ansible.builtin.package:
     name: firewalld
