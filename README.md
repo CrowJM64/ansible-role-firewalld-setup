@@ -6,17 +6,18 @@
 This Ansible role installs FirewallD and removes UFW, adding SSH to the allowlist, along with any other ports you need.
 ```yaml
 - Removes UFW if applicable
-- Ensures FirewallD is installed and up to date.
-- Allows the SSH service.
-- Allows any other desired ports.
-- Restarts FirewallD
+- Installs python3-firewall on Debian. (Required for Ansible FW Management on Debian)
+- Ensures FirewallD is both installed and up to date.
+- Allows the requested ports.
+- Allows the requested services.
+- Ensures FirewallD is enabled and restarts it.
 ```
 
 ## Dependencies
 - ansible.posix
 
 ## Supported Platforms and Derivatives
-These changes should work on every Redhat and Debian Distro. Below are the explicitly supported Distros.
+This playbook should work on most Redhat and Debian Distro.
 ```yaml
 # RedHat
 EL - All Versions

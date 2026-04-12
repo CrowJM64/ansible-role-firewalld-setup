@@ -14,7 +14,7 @@
   when: ansible_os_family == "Debian"
 
 
-- name: Ensure firewalld is installed and running.
+- name: Ensure Firewalld is installed and updated.
   ansible.builtin.package:
     name: firewalld
     state: latest
@@ -27,7 +27,7 @@
     immediate: false
     offline: true
   loop: "{{ fw_ports }}"
-  register: restart_firewalld
+  register: ports_set
 
 - name: Configure FirewallD Open Services
   ansible.posix.firewalld:
@@ -37,7 +37,7 @@
     immediate: false
     offline: true
   loop: "{{ fw_services }}"
-  register: restart_firewalld
+  register: services_set
 
 - name: Enable FirewallD
   ansible.builtin.service:
@@ -49,4 +49,4 @@
     name: firewalld
     state: restarted
   when:
-    - restart_firewalld is changed
+    - ports_set is changed or services_set is changed
