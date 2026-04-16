@@ -17,17 +17,19 @@ This Ansible role installs FirewallD and removes UFW, adding SSH to the allowlis
 - ansible.posix
 
 ## Supported Platforms and Derivatives
-This playbook should work on most Redhat and Debian Distro.
+This playbook should work on most Redhat and Debian Distributions. Below are the explicitly tested Distros:
 ```yaml
 # RedHat
-EL - All Versions
-Fedora - All Versions
-Rocky - All Versions
-AlmaLinux - All Versions
+Rocky 10/9
+CentOS 10/9
+Fedora 43/42
+Oracle 10
 
 # Debian
-Debian - All Versions
-Ubuntu - All Versions
+Ubuntu 24.04/22.04
+Debian 13
+Alma 10
+Mint 22
 ```
 
 ## Example Playbook
