@@ -1,9 +1,11 @@
 galaxy_info:
   author: Josh Murphy
   description: System File Hardening using Ansible.
-  company: ""
+  namespace: crowjm64
+  role_name: openssh_update
+
   license: MIT
-  min_ansible_version: 2.1
+  min_ansible_version: "2.1"
 
 
   platforms:
@@ -29,7 +31,6 @@ galaxy_info:
         - all
 
   galaxy_tags:
-    - ansible
     - deployment
     - automation
     - hardening
